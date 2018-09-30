@@ -30,8 +30,8 @@ export default class AuctionTable extends Component {
     selectedAuctionType,
     toggleFavoriteAuction,
     isFavoriteAuction,
-    markAllAsFavorite,
-    markAllAsUnfavorite,
+    markAllSelectedAuctionsAsFavorite,
+    removeAllSelectedAuctionsAsFavorited,
   ) => {
     if (!selectedAuctions.length) {
       return;
@@ -74,8 +74,8 @@ export default class AuctionTable extends Component {
       <div>
         <TitleLarge secondary>{selectedAuctionType.name}</TitleLarge>
         <ButtonsWrapper>
-          <StyledButton onClick={markAllAsFavorite}>Favorite all</StyledButton>
-          <StyledButton margined onClick={markAllAsUnfavorite}>
+          <StyledButton onClick={markAllSelectedAuctionsAsFavorite}>Favorite all</StyledButton>
+          <StyledButton margined onClick={removeAllSelectedAuctionsAsFavorited}>
             Remove all from favorites
           </StyledButton>
         </ButtonsWrapper>
@@ -94,16 +94,16 @@ export default class AuctionTable extends Component {
                 state: { selectedAuctions, selectedAuctionType },
                 toggleFavoriteAuction,
                 isFavoriteAuction,
-                markAllAsFavorite,
-                markAllAsUnfavorite
+                markAllSelectedAuctionsAsFavorite,
+                removeAllSelectedAuctionsAsFavorited
               }) => {
                 return this.renderTable(
                   selectedAuctions,
                   selectedAuctionType,
                   toggleFavoriteAuction,
                   isFavoriteAuction,
-                  markAllAsFavorite,
-                  markAllAsUnfavorite
+                  markAllSelectedAuctionsAsFavorite,
+                  removeAllSelectedAuctionsAsFavorited
                 );
               }}
             </AuctionSubscribe>

@@ -23,7 +23,7 @@ const ButtonsWrapper = styled.div`
 `;
 
 export default class FavoriteAuctionTable extends Component {
-  renderTable = (selectedAuctions, selectedAuctionType, toggleFavoriteAuction, resetFavorites, isFavoriteAuction) => {
+  renderTable = (selectedAuctions, selectedAuctionType, toggleFavoriteAuction, removeAllFavorites, isFavoriteAuction) => {
     if (!selectedAuctions.length) {
       return (
         <FullWidthWrapper>
@@ -62,7 +62,7 @@ export default class FavoriteAuctionTable extends Component {
       <div>
         <TitleLarge secondary>{selectedAuctionType.name}</TitleLarge>
         <ButtonsWrapper>
-          <StyledButton margined onClick={resetFavorites}>
+          <StyledButton margined onClick={removeAllFavorites}>
             Remove all favorites
           </StyledButton>
         </ButtonsWrapper>
@@ -75,8 +75,8 @@ export default class FavoriteAuctionTable extends Component {
     return (
       <AuctionProvider>
         <AuctionSubscribe>
-          {({ state: { favoriteAuctions }, toggleFavoriteAuction, resetFavorites, isFavoriteAuction }) => {
-            return this.renderTable(favoriteAuctions, "Favorite Auctions", toggleFavoriteAuction, resetFavorites, isFavoriteAuction);
+          {({ state: { favoriteAuctions }, toggleFavoriteAuction, removeAllFavorites, isFavoriteAuction }) => {
+            return this.renderTable(favoriteAuctions, "Favorite Auctions", toggleFavoriteAuction, removeAllFavorites, isFavoriteAuction);
           }}
         </AuctionSubscribe>
       </AuctionProvider>

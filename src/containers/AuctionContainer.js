@@ -106,7 +106,7 @@ export default class AuctionContainer extends Container {
     return this.state.favoriteAuctions.some(favoriteAuction => favoriteAuction.auctionId === auction.auctionId);
   };
 
-  markAllAsFavorite = () => {
+  markAllSelectedAuctionsAsFavorite = () => {
     const { favoriteAuctions, selectedAuctions } = this.state; 
     
     const previouslyFavoritedAuctions = favoriteAuctions
@@ -129,26 +129,22 @@ export default class AuctionContainer extends Container {
     }
   };
 
-  markAllAsUnfavorite = () => {
+  removeAllSelectedAuctionsAsFavorited = () => {
     const { favoriteAuctions, selectedAuctions } = this.state; 
     
-    console.log("Unfavoriting all selected auctions.")
     const previouslyFavoritedAuctions = favoriteAuctions
     .filter(favoriteAuction => selectedAuctions.some(
       selectedAuction => selectedAuction.auctionId === favoriteAuction.auctionId)
       );
 
     if(previouslyFavoritedAuctions && previouslyFavoritedAuctions.length) {
-      console.log({msg: "We've found some previosuly favorited auctions.", previouslyFavoritedAuctions})
-      console.log({msg: "We'll filter those from the current favorite auctions..", oldFavoriteAuctions: favoriteAuctions, 
-      filteredFavoriteAuctions: favoriteAuctions.filter(favoriteAuction => !previouslyFavoritedAuctions.includes(favoriteAuction))})
       this.setState({
         favoriteAuctions: favoriteAuctions.filter(favoriteAuction => !previouslyFavoritedAuctions.includes(favoriteAuction))
       });    
     } 
   };
 
-  resetFavorites = () => {
+  removeAllFavorites = () => {
     this.setState({
       favoriteAuctions: []
     });
