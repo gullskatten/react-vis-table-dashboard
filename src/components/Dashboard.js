@@ -9,14 +9,6 @@ import AuctionHouse from './AuctionHouse';
 
 const DashboardInfoWrapper = styled.div``;
 
-const StyledButton = styled.button`
-  border-radius: 5px;
-  border: 0;
-  background: ${props => props.theme.secondary};
-  cursor: pointer;
-  padding: 1rem 1.5rem;
-`;
-
 const StyledButtonWrapper = styled.div`
   margin: 10px 0;
 `;
@@ -39,11 +31,7 @@ export default class Dashboard extends React.Component {
                     </StyledMessage>
                   </DashboardInfoWrapper>
                   <StyledButtonWrapper>
-                    {!auctions.totalItems && (
-                      <StyledButton onClick={() => importAuctions(sampleAuctions)}>
-                        <StyledMessage white>Load Auctions</StyledMessage>
-                      </StyledButton>
-                    )}
+                    {!auctions.totalItems && importAuctions(sampleAuctions)}
                   </StyledButtonWrapper>
                   <AuctionHouse/>
                 </Container>

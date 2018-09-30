@@ -203,7 +203,7 @@ export default class AuctionChart extends Component {
           if (!clicked) {
             this.setState({
               pathValue: false,
-              finalValue: false,
+              finalValue: AUCTION_TITLE_DEFAULT,
               data: updateData(sunburnData, false)
             });
           }
@@ -229,7 +229,7 @@ export default class AuctionChart extends Component {
         width={750}
         padAngle={() => 0.02}
         hideRootNode
-        animated
+        animation
       >
         {hoveredCell ? (
           <Hint value={buildValue(hoveredCell)}>

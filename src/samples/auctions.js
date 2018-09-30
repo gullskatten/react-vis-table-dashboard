@@ -99,6 +99,7 @@ export const sampleAuctions = {
         name: "EPIC",
         displayName: "Epic"
       },
+      auctionPrice: 198,
       defaultPrice: 82,
       isSellable: true,
       isConsumable: false,
@@ -136,6 +137,7 @@ export const sampleAuctions = {
         name: "RARE",
         displayName: "Rare"
       },
+      auctionPrice: 67,
       defaultPrice: 12,
       isSellable: true,
       isConsumable: false,
@@ -634,7 +636,7 @@ export const sampleAuctions = {
         id: 23,
         movementSpeed: 150
       },
-      acutionPrice: 775,
+      auctionPrice: 775,
       defaultPrice: 125,
       isSellable: true,
       isConsumable: false,

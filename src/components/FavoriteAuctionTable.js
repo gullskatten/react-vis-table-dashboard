@@ -18,17 +18,22 @@ export default class FavoriteAuctionTable extends Component {
       );
     }
     const auctionFields = Object.keys(selectedAuctions[0]);
+    const skippableFields = ["modifier", "isSellable", "isConsumable", "isWeapon", "isQuestItem", "isEnchantable", "isWearable"];
 
-    const columns = auctionFields.filter(key => key !== "modifier").map(key => {
+    const columns = auctionFields.filter(key => !skippableFields.includes(key)).map(key => {
+     
       if (key === "itemType") {
-        return { id: key, Header: key, accessor: d => d.displayName };
+        return { id: key, Header: key, accessor: d => d.itemType.displayName };
       }
+      
       if (key === "armorType") {
-        return { id: key, Header: key, accessor: d => d.displayName };
+        return { id: key, Header: key, accessor: d => d.armorType ? d.armorType.displayName : "N/A" };
       }
+      
       if (key === "quality") {
-        return { id: key, Header: key, accessor: d => d.displayName };
+        return { id: key, Header: key, accessor: d => d.quality.displayName };
       }
+     
       if(key === "isFavorite") {
         return  {
               Header: 'isFavorite',

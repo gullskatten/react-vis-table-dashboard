@@ -9,7 +9,7 @@ const StyledMessage = styled.span`
     ${props => props.tertiary && css`color: ${props => props.theme.tertiary}`}
     ${props => props.error && css`color: ${props => props.theme.error}`}
     ${props => props.warn && css`color: ${props => props.theme.warn}`}
-    ${props => props.white && css`color: ${props => props.theme.offWhite}`}
+    ${props => props.white && css`color: #fff`}
     ${props => props.success && css`color: ${props => props.theme.success}`}
     ${props => props.thin && css`font-weight: 300`}
 `;
