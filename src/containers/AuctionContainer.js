@@ -89,8 +89,6 @@ export default class AuctionContainer extends Container {
   toggleFavoriteAuction = auction => {
     const { favoriteAuctions } = this.state;
 
-    auction.isFavorite = !auction.isFavorite;
-
     if (favoriteAuctions.some(auc => auc.auctionId === auction.auctionId)) {
       this.setState({
         favoriteAuctions: favoriteAuctions.filter(
@@ -104,43 +102,55 @@ export default class AuctionContainer extends Container {
     }
   };
 
-  findFavoriteAuctionsInSelectedAuctions = () => {
-    const { selectedAuctions } = this.state;
-
-    return selectedAuctions.filter(auction => !auction.isFavorite);
+  isFavoriteAuction = auction => {
+    return this.state.favoriteAuctions.some(favoriteAuction => favoriteAuction.auctionId === auction.auctionId);
   };
 
   markAllAsFavorite = () => {
-    const nextFavorite = this.state.favoriteAuctions.filter(favoriteAuction => {
-      const { selectedAuctions } = this.state;
-      return selectedAuctions.some(
-        auction => favoriteAuction.auctionId === auction.auctionId
+    const { favoriteAuctions, selectedAuctions } = this.state; 
+    
+    const previouslyFavoritedAuctions = favoriteAuctions
+    .filter(favoriteAuction => selectedAuctions.some(
+      selectedAuction => selectedAuction.auctionId === favoriteAuction.auctionId)
       );
-    });
 
-    this.setState({
-      selectedAuctions: this.state.selectedAuctions.map(auction => {
-        if (auction.isFavorite) return auction;
+    if(previouslyFavoritedAuctions && previouslyFavoritedAuctions.length) {
 
-        return {
-          ...auction,
-          isFavorite: true
-        };
-      })}, () => {
-          this.setState({
-            favoriteAuctions: [...nextFavorite, ...this.state.selectedAuctions]
-          })
-      });
+      const selectedAuctionsThatHaveNotBeenFavorited = selectedAuctions
+      .filter(selectedAuction => 
+        !previouslyFavoritedAuctions.includes(selectedAuction));
+      this.setState({
+        favoriteAuctions: [...favoriteAuctions, ...selectedAuctionsThatHaveNotBeenFavorited]
+      });    
+    }  else {
+      this.setState({
+        favoriteAuctions: [...favoriteAuctions, ...selectedAuctions]
+      });  
+    }
   };
 
   markAllAsUnfavorite = () => {
-    this.setState({
-      selectedAuctions: this.state.selectedAuctions.map(auction => {
-        return {
-          ...auction,
-          isFavorite: false
-        };
-      })
-    });
+    const { favoriteAuctions, selectedAuctions } = this.state; 
+    
+    console.log("Unfavoriting all selected auctions.")
+    const previouslyFavoritedAuctions = favoriteAuctions
+    .filter(favoriteAuction => selectedAuctions.some(
+      selectedAuction => selectedAuction.auctionId === favoriteAuction.auctionId)
+      );
+
+    if(previouslyFavoritedAuctions && previouslyFavoritedAuctions.length) {
+      console.log({msg: "We've found some previosuly favorited auctions.", previouslyFavoritedAuctions})
+      console.log({msg: "We'll filter those from the current favorite auctions..", oldFavoriteAuctions: favoriteAuctions, 
+      filteredFavoriteAuctions: favoriteAuctions.filter(favoriteAuction => !previouslyFavoritedAuctions.includes(favoriteAuction))})
+      this.setState({
+        favoriteAuctions: favoriteAuctions.filter(favoriteAuction => !previouslyFavoritedAuctions.includes(favoriteAuction))
+      });    
+    } 
   };
+
+  resetFavorites = () => {
+    this.setState({
+      favoriteAuctions: []
+    });
+  }
 }

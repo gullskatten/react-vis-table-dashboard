@@ -23,11 +23,11 @@ export default class Dashboard extends React.Component {
             return (
               <ContentWrapper>
                 <Container>
-                  <TitleHuge thin>Auction Dashboard</TitleHuge>
+                  <TitleHuge thin>{auctions ? auctions.auctionHouseName : 'Auction Dashboard'}</TitleHuge>
                   <DashboardInfoWrapper>
                     <StyledMessage secondary thin>
                       This page displays info about a virtual game auction
-                      house.
+                      house{auctions ? ", " + auctions.auctionHouseName : ''}.
                     </StyledMessage>
                   </DashboardInfoWrapper>
                   <StyledButtonWrapper>

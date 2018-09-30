@@ -47,13 +47,13 @@ export default class AuctionHouse extends React.Component {
                     auctionHouseState.onAuctionsDeselected()
                   }
                 />
-                <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
+        <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
         <TabList>
           <Tab>Available Auctions</Tab>
-          <Tab>Favorite Auctions</Tab>
+         <Tab disabled={!auctionHouseState.state.favoriteAuctions.length}>Favorite Auctions ({auctionHouseState.state.favoriteAuctions.length})</Tab> 
         </TabList>
         <TabPanel> <AuctionTable /></TabPanel>
-        <TabPanel> <FavoriteAuctionTable /></TabPanel>
+        <TabPanel> <FavoriteAuctionTable /></TabPanel> 
       </Tabs>
                
               </AuctionChartWrapper>

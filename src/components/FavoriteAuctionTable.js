@@ -4,12 +4,26 @@ import { TitleLarge } from "../styleguides/StyledTitle";
 import ReactTable from "react-table";
 import styled from "styled-components";
 import StyledMessage from "../styleguides/StyledMessage";
+
 const FullWidthWrapper = styled.div`
   width: 84vw;
 `;
 
+const StyledButton = styled.button`
+  color: #fff;
+  background: ${props => props.theme.warn};
+  padding: 0.5rem 0.8rem;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const ButtonsWrapper = styled.div`
+  margin: 10px 0;
+`;
+
 export default class FavoriteAuctionTable extends Component {
-  renderTable = (selectedAuctions, selectedAuctionType, toggleFavoriteAuction) => {
+  renderTable = (selectedAuctions, selectedAuctionType, toggleFavoriteAuction, resetFavorites, isFavoriteAuction) => {
     if (!selectedAuctions.length) {
       return (
         <FullWidthWrapper>
@@ -36,10 +50,10 @@ export default class FavoriteAuctionTable extends Component {
      
       if(key === "isFavorite") {
         return  {
-              Header: 'isFavorite',
+              Header: 'favorite',
               accessor: "isFavorite",
               Cell: d => <input type="checkbox" 
-              onChange={() => toggleFavoriteAuction(d.original)} checked={d.original.isFavorite}/>
+              onChange={() => toggleFavoriteAuction(d.original)} checked={isFavoriteAuction(d.original)}/>
           }
       }
       return { id: key, Header: key, accessor: key };
@@ -47,6 +61,11 @@ export default class FavoriteAuctionTable extends Component {
     return (
       <div>
         <TitleLarge secondary>{selectedAuctionType.name}</TitleLarge>
+        <ButtonsWrapper>
+          <StyledButton margined onClick={resetFavorites}>
+            Remove all favorites
+          </StyledButton>
+        </ButtonsWrapper>
         <ReactTable columns={columns} data={selectedAuctions} filterable />
       </div>
     );
@@ -56,8 +75,8 @@ export default class FavoriteAuctionTable extends Component {
     return (
       <AuctionProvider>
         <AuctionSubscribe>
-          {({ state: { favoriteAuctions }, toggleFavoriteAuction }) => {
-            return this.renderTable(favoriteAuctions, "Favorite Auctions", toggleFavoriteAuction);
+          {({ state: { favoriteAuctions }, toggleFavoriteAuction, resetFavorites, isFavoriteAuction }) => {
+            return this.renderTable(favoriteAuctions, "Favorite Auctions", toggleFavoriteAuction, resetFavorites, isFavoriteAuction);
           }}
         </AuctionSubscribe>
       </AuctionProvider>

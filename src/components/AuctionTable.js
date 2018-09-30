@@ -29,8 +29,9 @@ export default class AuctionTable extends Component {
     selectedAuctions,
     selectedAuctionType,
     toggleFavoriteAuction,
+    isFavoriteAuction,
     markAllAsFavorite,
-    markAllAsUnfavorite
+    markAllAsUnfavorite,
   ) => {
     if (!selectedAuctions.length) {
       return;
@@ -60,7 +61,7 @@ export default class AuctionTable extends Component {
             <input
               type="checkbox"
               onChange={() => toggleFavoriteAuction(d.original)}
-              checked={d.original.isFavorite}
+              checked={isFavoriteAuction(d.original)}
             />
           )
         };
@@ -92,6 +93,7 @@ export default class AuctionTable extends Component {
               {({
                 state: { selectedAuctions, selectedAuctionType },
                 toggleFavoriteAuction,
+                isFavoriteAuction,
                 markAllAsFavorite,
                 markAllAsUnfavorite
               }) => {
@@ -99,6 +101,7 @@ export default class AuctionTable extends Component {
                   selectedAuctions,
                   selectedAuctionType,
                   toggleFavoriteAuction,
+                  isFavoriteAuction,
                   markAllAsFavorite,
                   markAllAsUnfavorite
                 );
