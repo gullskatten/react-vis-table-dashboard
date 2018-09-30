@@ -23,7 +23,7 @@ export const TitleLarge = styled.h2`
     color: ${props => props.theme.primary}
     font-size: 2.5rem;
     font-family: 'Bai Jamjuree', sans-serif;
-    margin: 0;
+    margin: 5px 0;
     
     span {
         font-size: 2.3rem;
